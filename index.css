@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-	max-width: 600px;
+	max-width: 900px;
 	margin: 0 auto;
 }
 
@@ -11,4 +11,9 @@ body {
 	font-family: "Roboto Slab";
 	font-size: 3rem;
 	margin-top: 4rem;
+}
+
+.board {
+	max-width: 600px;
+	margin: 0 auto;
 }

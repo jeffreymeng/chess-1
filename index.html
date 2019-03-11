@@ -3,6 +3,8 @@
 <html>
 <head>
 	<title>Chess AI</title>
+
+	<link rel="stylesheet" type="text/css" href="css/chessboard-0.3.0.min.css">
 	<link rel="stylesheet" type="text/css" href="index.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:400,700" rel="stylesheet">
 </head>
@@ -11,12 +13,19 @@
 		<h1 class="title">Chess AI</h1>
 		<p>A simple Chess AI built with Minimax and Alpha-Beta pruning.</p>
 
+		<div id="board" class="board"></div>
+
 		<p>
+			Adapted from: <a href="https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977">https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977</a>
+			<br>
 			Built by <a href="https://thecodingwizard.me/" target="_blank">Nathan Wang</a>
 			for <a href="http://www.mvai.club/">Monta Vista AI Club</a>.
 		</p>
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+	<script src="js/chessboard-0.3.0.min.js"></script>
 	<script src="index.js"></script>
 </body>
 </html>
