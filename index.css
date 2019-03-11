@@ -1,0 +1,14 @@
+body {
+	font-family: "Open Sans";
+}
+
+.container {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.title {
+	font-family: "Roboto Slab";
+	font-size: 3rem;
+	margin-top: 4rem;
+}
