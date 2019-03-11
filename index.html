@@ -15,6 +15,29 @@
 
 		<div id="board" class="board"></div>
 
+
+		<div class="info">
+			Search depth:
+			<select id="search-depth">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3" selected>3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
+
+			<br>
+			<span>Positions evaluated: <span id="position-count"></span></span>
+			<br>
+			<span>Time: <span id="time"></span></span>
+			<br>
+			<span>Positions/s: <span id="positions-per-s"></span> </span>
+			<br>
+			<br>
+			<div id="move-history" class="move-history">
+			</div>
+		</div>
+
 		<p>
 			Adapted from: <a href="https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977">https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977</a>
 			<br>
@@ -24,7 +47,7 @@
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+	<script src="js/chess.js"></script>
 	<script src="js/chessboard-0.3.0.min.js"></script>
 	<script src="index.js"></script>
 </body>

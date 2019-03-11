@@ -4,13 +4,13 @@ var board, game = new Chess();
 
 var minimaxRoot = function(depth, game, isMaximisingPlayer) {
 
-    var newGameMoves = game.ugly_moves();
+    var newGameMoves = game.moves();
     var bestMove = -9999;
     var bestMoveFound;
 
     for(var i = 0; i < newGameMoves.length; i++) {
         var newGameMove = newGameMoves[i]
-        game.ugly_move(newGameMove);
+        game.move(newGameMove);
         var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
         game.undo();
         if(value >= bestMove) {
@@ -24,15 +24,16 @@ var minimaxRoot = function(depth, game, isMaximisingPlayer) {
 var minimax = function (depth, game, alpha, beta, isMaximisingPlayer) {
     positionCount++;
     if (depth === 0) {
+        console.log(game);
         return -evaluateBoard(game.board());
     }
 
-    var newGameMoves = game.ugly_moves();
+    var newGameMoves = game.moves();
 
     if (isMaximisingPlayer) {
         var bestMove = -9999;
         for (var i = 0; i < newGameMoves.length; i++) {
-            game.ugly_move(newGameMoves[i]);
+            game.move(newGameMoves[i]);
             bestMove = Math.max(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
             game.undo();
             alpha = Math.max(alpha, bestMove);
@@ -44,7 +45,7 @@ var minimax = function (depth, game, alpha, beta, isMaximisingPlayer) {
     } else {
         var bestMove = 9999;
         for (var i = 0; i < newGameMoves.length; i++) {
-            game.ugly_move(newGameMoves[i]);
+            game.move(newGameMoves[i]);
             bestMove = Math.min(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
             game.undo();
             beta = Math.min(beta, bestMove);
@@ -188,7 +189,7 @@ var onDragStart = function (source, piece, position, orientation) {
 
 var makeBestMove = function () {
     var bestMove = getBestMove(game);
-    game.ugly_move(bestMove);
+    game.move(bestMove);
     board.position(game.fen());
     renderMoveHistory(game.history());
     if (game.game_over()) {
@@ -225,7 +226,6 @@ var renderMoveHistory = function (moves) {
         historyElement.append('<span>' + moves[i] + ' ' + ( moves[i + 1] ? moves[i + 1] : ' ') + '</span><br>')
     }
     historyElement.scrollTop(historyElement[0].scrollHeight);
-
 };
 
 var onDrop = function (source, target) {
