@@ -60,3 +60,8 @@ body {
 	max-height: 320px;
 	overflow: auto;
 }
+
+.footer {
+	font-size: 14px;
+	line-height: 1.6;
+}
