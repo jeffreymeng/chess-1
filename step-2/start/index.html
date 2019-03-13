@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chess AI</title>
+
+	<link rel="stylesheet" type="text/css" href="css/chessboard-0.3.0.min.css">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:400,700" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1 class="title">Chess AI</h1>
+			<p>A simple Chess AI built with Minimax and Alpha-Beta pruning.</p>
+		</div>
+
+		<div class="left">
+			<div id="board" class="board"></div>
+		</div>
+		<div class="right">
+			<div class="info">
+				<h2 class="info__title">Configuration</h2>
+				<span class="info__label">Search depth:</span>
+				<select id="search-depth" class="info__search-depth">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3" selected>3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+
+				<br>
+				<span class="info__label">Positions evaluated:</span> <span id="position-count">0</span>
+				<br>
+				<span class="info__label">Time:</span> <span id="time">0</span>
+				<br>
+				<span class="info__label">Positions/s:</span> <span id="positions-per-s">0</span>
+				<br>
+				<br>
+				<span class="info__label">Moves:</span>
+				<div id="move-history" class="info__moves">
+					No moves yet!
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>
+				Adapted from <a href="https://github.com/lhartikk/simple-chess-ai">https://github.com/lhartikk/simple-chess-ai</a>.
+				<br>
+				Built by <a href="https://thecodingwizard.me/" target="_blank">Nathan Wang</a>
+				for <a href="http://www.mvai.club/">Monta Vista AI Club</a>.
+			</p>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/chess.js"></script>
+	<script src="js/chessboard-0.3.0.min.js"></script>
+	<script src="index.js"></script>
+</body>
+</html>
