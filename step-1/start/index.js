@@ -1,15 +1,26 @@
 var board, game = new Chess();
 
-/*The "AI" part starts here */
-var calculateBestMove =function(game) {
-
-    var newGameMoves = game.moves();
-
-    return newGameMoves[Math.floor(Math.random() * newGameMoves.length)];
-
+/* ================================== */
+/* TODO: Implement This Function!     */
+/* Randomly return a legal move       */
+/* Solution: step-1/end/index.js      */
+/* ================================== */
+var calculateBestMove = function(game) {
+    /**
+     * API Methods Needed:
+     * game.moves()  => Returns a list of possible legal moves
+     * 
+     * To get a random element from an array:
+     * var myArray = [0, 1, 2, 3, 4, 5];
+     * var randomElement = myArray[Math.floor(Math.random() * myArray.length)];
+     */
 };
 
-// UNCOMMENT THIS FOR STEP 1
+
+/* ================================== */
+/* Helper Code                        */
+/* ================================== */
+
 var getBestMove = function (game) {
     if (game.game_over()) {
         alert('Game over');
@@ -17,30 +28,6 @@ var getBestMove = function (game) {
     var bestMove = calculateBestMove(game);
     return bestMove;
 };
-
-// UNCOMMENT THIS FOR STEP TWO
-// var positionCount;
-// var getBestMove = function (game) {
-//     if (game.game_over()) {
-//         alert('Game over');
-//     }
-
-//     positionCount = 0;
-//     var depth = parseInt($('#search-depth').find(':selected').text());
-
-//     var d = new Date().getTime();
-//     var bestMove = minimaxRoot(depth, game, true);
-//     var d2 = new Date().getTime();
-//     var moveTime = (d2 - d);
-//     var positionsPerS = ( positionCount * 1000 / moveTime);
-
-//     $('#position-count').text(positionCount);
-//     $('#time').text(moveTime/1000 + 's');
-//     $('#positions-per-s').text(positionsPerS);
-//     return bestMove;
-// };
-
-/* board visualization and games state handling */
 
 var onDragStart = function (source, piece, position, orientation) {
     if (game.in_checkmate() === true || game.in_draw() === true ||

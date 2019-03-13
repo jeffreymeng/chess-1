@@ -1,15 +1,23 @@
 var board, game = new Chess();
 
-/*The "AI" part starts here */
-var calculateBestMove =function(game) {
+/* ================================== */
+/* TODO: Implement This Function!     */
+/* Randomly return a legal move       */
+/* ================================== */
+var calculateBestMove = function(game) {
+    /**
+     * API Methods Needed:
+     * game.moves()  => Returns a list of possible game moves
+     */
 
-    var newGameMoves = game.moves();
-
-    return newGameMoves[Math.floor(Math.random() * newGameMoves.length)];
-
+    console.log(game.moves());
 };
 
-// UNCOMMENT THIS FOR STEPS 1 AND 2
+
+/* ================================== */
+/* Helper Code                        */
+/* ================================== */
+
 var getBestMove = function (game) {
     if (game.game_over()) {
         alert('Game over');
@@ -17,30 +25,6 @@ var getBestMove = function (game) {
     var bestMove = calculateBestMove(game);
     return bestMove;
 };
-
-// UNCOMMENT THIS FOR STEPS 3+
-// var positionCount;
-// var getBestMove = function (game) {
-//     if (game.game_over()) {
-//         alert('Game over');
-//     }
-
-//     positionCount = 0;
-//     var depth = parseInt($('#search-depth').find(':selected').text());
-
-//     var d = new Date().getTime();
-//     var bestMove = minimaxRoot(depth, game, true);
-//     var d2 = new Date().getTime();
-//     var moveTime = (d2 - d);
-//     var positionsPerS = ( positionCount * 1000 / moveTime);
-
-//     $('#position-count').text(positionCount);
-//     $('#time').text(moveTime/1000 + 's');
-//     $('#positions-per-s').text(positionsPerS);
-//     return bestMove;
-// };
-
-/* board visualization and games state handling */
 
 var onDragStart = function (source, piece, position, orientation) {
     if (game.in_checkmate() === true || game.in_draw() === true ||
