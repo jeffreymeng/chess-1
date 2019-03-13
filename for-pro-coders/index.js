@@ -1,6 +1,5 @@
 let board, game = new Chess();
 const query = new URLSearchParams(window.location.search);
-let srng = new Math.seedrandom(query.get("seed") || "jeffrey-chess-seed");
 
 var calculateBestMove = function(game) {
 
@@ -110,32 +109,24 @@ var minimax = function (depth, game, isMaximisingPlayer) {
 /* Helper Code                        */
 /* ================================== */
 
-// FOR STEP THREE, PLEASE READ!!!
-// On step three, update getBestMove to this function:
-// var getBestMove = function (game) {
-//     if (game.game_over()) {
-//         alert('Game over');
-//     }
 
-//     positionCount = 0;
-//     var depth = parseInt($('#search-depth').find(':selected').text());
-
-//     var d = new Date().getTime();
-//     var bestMove = minimaxRoot(depth, game, true);
-//     var d2 = new Date().getTime();
-//     var moveTime = (d2 - d);
-//     var positionsPerS = ( positionCount * 1000 / moveTime);
-
-//     $('#position-count').text(positionCount);
-//     $('#time').text(moveTime/1000 + 's');
-//     $('#positions-per-s').text(positionsPerS);
-//     return bestMove;
-// };
 var getBestMove = function (game) {
     if (game.game_over()) {
         alert('Game over');
     }
-    var bestMove = calculateBestMove(game);
+
+    positionCount = 0;
+    var depth = parseInt($('#search-depth').find(':selected').text());
+
+    var d = new Date().getTime();
+    var bestMove = minimaxRoot(depth, game, true);
+    var d2 = new Date().getTime();
+    var moveTime = (d2 - d);
+    var positionsPerS = ( positionCount * 1000 / moveTime);
+
+    $('#position-count').text(positionCount);
+    $('#time').text(moveTime/1000 + 's');
+    $('#positions-per-s').text(positionsPerS);
     return bestMove;
 };
 
