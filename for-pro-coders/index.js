@@ -1,107 +1,54 @@
-var board, game = new Chess();
+let board, game = new Chess();
+const query = new URLSearchParams(window.location.search);
+let srng = new Math.seedrandom(query.get("seed") || "jeffrey-chess-seed");
 
-// TO DEBUG CODE:
-// console.log(variable)
-// will print the variable to the console
-
-/* Step #1   ======================== */
-/* TODO: Implement This Function!     */
-/* Randomly return a legal move       */
-/* Solution: step-1/end/index.js      */
-/* ================================== */
 var calculateBestMove = function(game) {
-    /* Step 1: Randomly return a legal move */
-    /**
-     * API Methods Needed:
-     * game.moves()  => Returns a list of possible legal moves
-     */
 
+    // Clone the board
+    let testBoard = new Chess(game.fen());
+    let best = 0;
+    let bestScore = evaluateBoard(testBoard.move(game.moves()[0]));
+    for (let i = 1; i < game.moves().length(); i ++) {
+        let score = evaluateBoard(testBoard.move(game.moves()[i]));
+        if (score > bestScore) {
+            bestScore = score;
+            best = i;
+        }
+        testBoard.undo();
 
+    }
 
+    return game.moves()[best];
 
-    /* Step 2: Update this function to take into consideration board value */
-    /* Delete Step 1's Code! */
-    /* This function should find and return the best possible move to play */
-    /**
-     * API Methods Needed:
-     * game.moves()  => Returns a list of possible legal moves
-     * game.move(gameMove)  => Executes the given move.
-     * game.undo()   => Undos the last move
-     * game.board()  => Returns the current game board.
-     *                  Pass game.board() into evaluateBoard().
-     * 
-     * You will need to call game.move() before calling evaluateBoard().
-     *
-     * Note: The "best move" is the move that will help the AI (black) win!
-     * evaluateBoard() returns a positive value if white is winning, and a negative value if black is winning
-     * Therefore, you want to *minimize* the result of evaluateBoard()!
-     */
 };
 
 
-/* Step #2   ======================== */
-/* TODO:                              */
-/*  1. Implement getPieceValue        */
-/*  2. Implement evaluateBoard        */
-/*  3. Update calculateBestMove       */
-/* Solution: step-2/end/index.js      */
-/* ================================== */
 function getPieceValue(piece) {
-    /**
-     * API Methods Needed:
-     * piece.type  ==> A single character representing the type of the piece
-     *                 if piece.type === 'p': Piece is Pawn
-     *                 piece.type === 'r': Rook
-     *                 'n': Knight
-     *                 'b': Bishop
-     *                 'q': Queen
-     *                 'k': King
-     *
-     * piece.color ==> A single character representing the color of the piece
-     *                 if piece.color === 'w': Piece is White
-     *                 if piece.color === 'b': Piece is Black
-     *
-     * Returns: The value of the piece, using the following rules:
-     * 1. If the piece is white, return the positive value of the piece.
-     * 2. If the piece is black, return the negative value of the piece.
-     * 3. Each piece is worth the following value:
-     *    Pawn = 10
-     *    Knight, Bishop = 30
-     *    Rook = 50
-     *    Queen = 90
-     *    King = 900
 
-     * Look at step-2/piece-values.png for a handy guide!
-     */
+    let pieceValues = {
+      p:10,
+      k:30,
+      b:30,
+      r:50,
+      q:90,
+      k:900
+    };
+
+    return pieceValues[piece.type] * (piece.color === "w" ? 1 : -1);
 };
 
 function evaluateBoard(board) {
-    /**
-     * Use getPieceValue() to determine the "value" of the board!
-     * Value of the board = sum of the value of all the pieces on the board
-     *
-     * API Methods Needed:
-     * board[i][j] = the piece on the board at (i, j)
-     * board is an 8x8 array
-     *
-     * Pro tip: getPieceValue(board[i][j]) returns the value of the piece at (i, j)!
-     * 
-     * Note: evaluateBoard returns the value of the board assuming white is positive and black is negative
-     * (eg. A positive result means white is winning)
-     */
+
+    let value = 0;
+    for (let i = 0; i < board.length; i ++) {
+        for (let j = 0; j < board[i].length; j ++) {
+            value += getPieceValue(board[i][j]);
+        }
+    }
+    return value;
+
 };
 
-
-
-
-
-/* Step #3    ======================= */
-/* TODO:                              */
-/*  1. Go to the helper code section and update the getBestMove() function */
-/*  1. Implement minimax              */
-/*  2. Implement minimaxRoot          */
-/* Solution: step-3/end/index.js      */
-/* ================================== */
 var minimaxRoot = function(depth, game, isMaximisingPlayer) {
     // This function should find the optimal move and return it.
     // isMaximisingPlayer is true when we are playing as the AI.
@@ -232,7 +179,9 @@ var onDrop = function (source, target) {
     }
 
     renderMoveHistory(game.history());
-    window.setTimeout(makeBestMove, 250);
+
+    // This is necessary for the drop to render properly!
+    setTimeout(makeBestMove, 250);
 };
 
 var onSnapEnd = function () {
@@ -272,7 +221,6 @@ var greySquare = function(square) {
 
     squareEl.css('background', background);
 };
-
 var cfg = {
     draggable: true,
     position: 'start',
