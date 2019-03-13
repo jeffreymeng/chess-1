@@ -4,7 +4,6 @@ var board, game = new Chess();
 /* TODO:                              */
 /*  1. Implement getPieceValue        */
 /*  2. Implement evaluateBoard        */
-/* Randomly return a legal move       */
 /* Solution: step-2/end/index.js      */
 /* ================================== */
 function getPieceValue(piece) {

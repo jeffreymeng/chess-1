@@ -1,0 +1,67 @@
+body {
+	font-family: "Open Sans";
+	background-color: hsl(210, 36%, 98%);
+}
+
+.container {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+@media(min-width: 1000px) {
+	.container {
+		max-width: 1000px;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.left {
+		width: 600px;
+		margin: 30px 0;
+	}
+	.right {
+		padding-left: 75px;
+		flex: 1;
+		margin: 30px 0;
+	}
+	.header, .footer {
+		width: 100%;
+	}
+}
+
+.title {
+	font-family: "Roboto Slab";
+	font-size: 3rem;
+	margin-top: 4rem;
+}
+
+.info {
+	background-color: white;
+	box-shadow: 2px 5px 15px 5px hsl(212, 33%, 89%);
+	padding: 25px;
+	line-height: 1.7;
+}
+
+.info__title {
+	font-family: "Roboto Slab";
+	font-weight: normal;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.info__search-depth {
+	margin-left: 8px;
+}
+
+.info__label {
+	font-weight: bold;
+}
+
+.info__moves {
+	max-height: 320px;
+	overflow: auto;
+}
+
+.footer {
+	font-size: 14px;
+	line-height: 1.6;
+}

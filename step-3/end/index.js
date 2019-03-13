@@ -1,11 +1,92 @@
 var board, game = new Chess();
+var positionCount;
 
 /* ================================== */
 /* TODO:                              */
-/*  1. Implement getPieceValue        */
-/*  2. Implement evaluateBoard        */
-/* Solution: step-2/end/index.js      */
+/*  1. Implement minimax              */
+/*  2. Implement minimaxRoot          */
+/* Solution: step-3/end/index.js      */
 /* ================================== */
+var minimaxRoot = function(depth, game, isMaximisingPlayer) {
+    var newGameMoves = game.moves();
+    var bestMove = -9999;
+    var bestMoveFound;
+
+    for(var i = 0; i < newGameMoves.length; i++) {
+        var newGameMove = newGameMoves[i];
+        game.move(newGameMove);
+
+        // Call minimax! Make sure to decrease depth and update isMaximizingPlayer.
+        var value = minimax(depth - 1, game, !isMaximisingPlayer);
+
+        game.undo();
+        if(value >= bestMove) {
+            bestMove = value;
+            bestMoveFound = newGameMove;
+        }
+    }
+    return bestMoveFound;
+};
+
+// TODO implement this function!!
+// This should return the "score" of the best move
+var minimax = function (depth, game, isMaximisingPlayer) {
+    positionCount++;
+    // Different depth implementation this time:
+    // Depth starts out at 3, then is decremented each layer
+    // So when depth === 0, stop the recursion
+    if (depth === 0) {
+        return -evaluateBoard(game.board());
+    }
+
+    var newGameMoves = game.moves();
+
+    if (isMaximisingPlayer) {
+        var bestMove = -9999;
+        for (var i = 0; i < newGameMoves.length; i++) {
+            game.move(newGameMoves[i]);
+
+            // TODO: Update bestMove!
+            var moveValue = minimax(depth - 1, game, !isMaximisingPlayer);
+            bestMove = Math.max(bestMove, moveValue);
+
+            game.undo();
+        }
+        return bestMove;
+    } else {
+        var bestMove = 9999;
+        for (var i = 0; i < newGameMoves.length; i++) {
+            game.move(newGameMoves[i]);
+
+            // TODO: Update bestMove!
+            var moveValue = minimax(depth - 1, game, !isMaximisingPlayer);
+            bestMove = Math.min(bestMove, moveValue);
+
+            game.undo();
+        }
+        return bestMove;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getPieceValue(piece) {
     /**
      * API Methods Needed:
@@ -45,9 +126,14 @@ function getPieceValue(piece) {
             return 10;
         } else if (piece.type === 'r') {
             return 50;
-        } else if (piece.type === 'Fix Me!') {
-            // The rest is for you to implement!
-            // ...
+        } else if (piece.type === 'n') {
+            return 30;
+        } else if (piece.type === 'b') {
+            return 30 ;
+        } else if (piece.type === 'q') {
+            return 90;
+        } else if (piece.type === 'k') {
+            return 900;
         }
 
         throw "Unknown piece type: " + piece.type;
@@ -57,6 +143,11 @@ function getPieceValue(piece) {
 
     // TODO: If piece.color === 'w', return absoluteValue
     //       Else, return -absoluteValue
+    if (piece.color === 'w') {
+        return absoluteValue;
+    } else {
+        return -absoluteValue;
+    }
 };
 
 function evaluateBoard(board) {
@@ -76,44 +167,12 @@ function evaluateBoard(board) {
     for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
             // Hmm... maybe add something to totalEvaluation here?
+            totalEvaluation += getPieceValue(board[i][j]);
         }
     }
 
     return totalEvaluation;
 };
-
-function calculateBestMove(game) {
-    /**
-     * Figures out what the best move is for the computer.
-     * You don't actually have to modify this method -- everything's done for you!
-     */
-
-    var newGameMoves = game.moves();
-    var bestMove = null;
-    // use any negative large number
-    var bestValue = -9999;
-
-    for(var i = 0; i < newGameMoves.length; i++) {
-        var newGameMove = newGameMoves[i];
-        game.move(newGameMove);
-
-        // take the negative as AI plays as black
-        var boardValue = -evaluateBoard(game.board())
-
-        game.undo();
-
-        if(boardValue > bestValue) {
-            bestValue = boardValue;
-            bestMove = newGameMove;
-        }
-    }
-
-    return bestMove;
-};
-
-
-
-
 
 
 /* ================================== */
@@ -124,7 +183,19 @@ var getBestMove = function (game) {
     if (game.game_over()) {
         alert('Game over');
     }
-    var bestMove = calculateBestMove(game);
+
+    positionCount = 0;
+    var depth = parseInt($('#search-depth').find(':selected').text());
+
+    var d = new Date().getTime();
+    var bestMove = minimaxRoot(depth, game, true);
+    var d2 = new Date().getTime();
+    var moveTime = (d2 - d);
+    var positionsPerS = ( positionCount * 1000 / moveTime);
+
+    $('#position-count').text(positionCount);
+    $('#time').text(moveTime/1000 + 's');
+    $('#positions-per-s').text(positionsPerS);
     return bestMove;
 };
 
